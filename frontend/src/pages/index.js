@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useRef } from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
 import { Lexend } from 'next/font/google';
 import { ethers } from 'ethers';
 import { ToastContainer, toast, Zoom } from 'react-toastify';
@@ -43,28 +42,31 @@ const Home = () => {
   const reset = () => {
     setAddress('');
     setTouched(false);
-    setRecaptcha(null);
-    recaptchaRef.current.reset();
+    // setRecaptcha(null);
+    // recaptchaRef.current.reset();
   };
 
   const handleRecaptchaChange = (value) => {
-    setRecaptcha(value);
+    // setRecaptcha(value);
   };
 
   const handleSubmit = () => {
     setLoading(true);
 
+    const params = new URLSearchParams();
+    params.append('to', address);
+
     axios
-      .post(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/faucets`, {
-        address,
-      })
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/faucets`, params)
       .then((response) => {
-        console.log(`tx Hash : ${JSON.stringify(response.data)}`);
+        console.log(`tx Hash : ${JSON.stringify(response.data.txHash)}`);
+        console.log(`status : ${response.data.success}`);
         toast.success(`Faucet Success`, { transition: Zoom });
         reset();
         setLoading(false);
       })
       .catch((err) => {
+        console.log(`err : ${JSON.stringify(err)}}`);
         let errText = 'Faucet Fail';
         if (typeof err.response == 'undefined' || err.response == null) {
           errText = 'Unknown status';
