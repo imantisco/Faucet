@@ -1,0 +1,15 @@
+.button {
+  padding: 12px 16px;
+  background: #47a1ff;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: opacity 0.25s, background 0.25s;
+  color: white;
+  font-weight: 500;
+  &.active {
+    background: #1010104d;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+}

@@ -13,6 +13,9 @@ import SnsButtons from "@/components/SNS-buttons/sns-buttons";
 import TitleWeb from "@/assets/title/title-web";
 import TitleMobile from "@/assets/title/title-mobile";
 
+import { useWeb3React } from "@web3-react/core";
+import ConnectButton from "@/components/Button/ConnectButton";
+
 const lexend = Lexend({
   subsets: ["latin"],
   variable: "--lexend-font",
@@ -105,6 +108,7 @@ const Home = () => {
       </Head>
       <header className={styles.header}>
         <Logo />
+        <ConnectButton />
       </header>
       <main className={styles.main}>
         <div className={`${styles.center} ${lexend.variable}`}>
