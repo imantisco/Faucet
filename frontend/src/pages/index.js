@@ -15,6 +15,7 @@ import TitleMobile from "@/assets/title/title-mobile";
 
 import { useWeb3React } from "@web3-react/core";
 import ConnectButton from "@/components/Button/ConnectButton";
+import ConnectWalletModal from "@/components/ConnectWalletModal/ConnectWalletModal";
 
 const lexend = Lexend({
   subsets: ["latin"],
@@ -26,8 +27,17 @@ const Home = () => {
   const [touched, setTouched] = useState(false);
   const [loading, setLoading] = useState(false);
   const [recaptcha, setRecaptcha] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const recaptchaRef = useRef(undefined);
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
   const handleChange = (e) => {
     setAddress(e.target.value);
@@ -106,9 +116,14 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <ConnectWalletModal open={modalOpen} onClose={handleCloseModal} />
       <header className={styles.header}>
         <Logo />
-        <ConnectButton />
+        <ConnectButton
+          open={modalOpen}
+          onClick={handleOpenModal}
+          onClose={handleCloseModal}
+        />
       </header>
       <main className={styles.main}>
         <div className={`${styles.center} ${lexend.variable}`}>

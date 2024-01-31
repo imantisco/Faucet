@@ -11,15 +11,15 @@ import {
   metaMask,
 } from "@/lib/connectors/metamask/metamask";
 import { useWalletInfoRecoil } from "@/store/walletStore";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
-const ConnectButton = () => {
+const ConnectButton = ({ open, onClick }) => {
   const { account, connector } = useWeb3React();
 
   const [ethereum, setEthereum] = React.useState({});
   const [hasMetaMask, setHasMetaMask] = React.useState(false);
 
-  const { useIsActivating, useIsActive } = metaMaskHooks;
-  const isActivating = useIsActivating();
+  const { useIsActive } = metaMaskHooks;
   const isActive = useIsActive();
 
   const buttonClassNames = clsx({
@@ -27,21 +27,7 @@ const ConnectButton = () => {
     [styles.active]: isActive,
   });
 
-  const { walletInfoRecoil, setWalletInfoRecoil } = useWalletInfoRecoil();
-
-  const [clicked, setClicked] = React.useState(false);
-
-  const connectMetaMask = () => {
-    if (!isActive && !isActivating) {
-      metaMask.activate(walletInfoRecoil.network).then(() => {
-        setClicked(true);
-        setWalletInfoRecoil({
-          ...walletInfoRecoil,
-          selectedWallet: "MetaMask",
-        });
-      });
-    }
-  };
+  const { setWalletInfoRecoil } = useWalletInfoRecoil();
 
   const disconnectMetaMask = async () => {
     if (connector?.deactivate) {
@@ -72,15 +58,19 @@ const ConnectButton = () => {
     <div
       className={buttonClassNames}
       onClick={() => {
-        if (!isActive) {
-          connectMetaMask();
-        }
         if (isActive) {
           disconnectMetaMask();
+          return;
         }
+        onClick();
       }}
     >
-      {isActive ? <>Disconnect</> : <>Connect Wallet</>}
+      {open && (
+        <span className={styles.loading}>
+          <LoadingSpinner color={"#47a1ff"} /> connecting...
+        </span>
+      )}
+      {!open && <span>{isActive ? <>Disconnect</> : <>Connect Wallet</>}</span>}
     </div>
   );
 };
