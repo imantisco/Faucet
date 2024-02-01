@@ -16,6 +16,8 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 const ConnectButton = ({ open, onClick }) => {
   const { account, connector } = useWeb3React();
 
+  console.log(`wallet Address: ${account}`);
+
   const [ethereum, setEthereum] = React.useState({});
   const [hasMetaMask, setHasMetaMask] = React.useState(false);
 
