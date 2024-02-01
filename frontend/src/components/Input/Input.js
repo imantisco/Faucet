@@ -10,6 +10,7 @@ const Input = (props) => {
         value={value}
         onBlur={onBlur}
         placeholder={placeholder}
+        readOnly
       />
       {error ? <div className={styles.required}>Required</div> : <></>}
       <Image
