@@ -1,17 +1,17 @@
-import * as React from "react";
-import styles from "./ConnectButton.module.scss";
-import clsx from "clsx";
+import * as React from 'react';
+import styles from './ConnectButton.module.scss';
+import clsx from 'clsx';
 
-import { has, find } from "lodash";
-import { useRecoilState } from "recoil";
-import { useWeb3React } from "@web3-react/core";
+import { has, find } from 'lodash';
+import { useRecoilState } from 'recoil';
+import { useWeb3React } from '@web3-react/core';
 
 import {
   hooks as metaMaskHooks,
   metaMask,
-} from "@/lib/connectors/metamask/metamask";
-import { useWalletInfoRecoil } from "@/store/walletStore";
-import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+} from '@/lib/connectors/metamask/metamask';
+import { useWalletInfoRecoil } from '@/store/walletStore';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const ConnectButton = ({ open, onClick }) => {
   const { account, connector } = useWeb3React();
@@ -50,10 +50,10 @@ const ConnectButton = ({ open, onClick }) => {
     setHasMetaMask(
       ethereum &&
         (ethereum.isMetaMask ||
-          (has(ethereum, "providers") &&
+          (has(ethereum, 'providers') &&
             find(
               ethereum.providers,
-              (p) => has(p, "isMetaMask") && p.isMetaMask
+              (p) => has(p, 'isMetaMask') && p.isMetaMask
             ) !== undefined))
     );
   }, [ethereum]);
@@ -71,7 +71,7 @@ const ConnectButton = ({ open, onClick }) => {
     >
       {open && (
         <span className={styles.loading}>
-          <LoadingSpinner color={"#47a1ff"} /> connecting...
+          <LoadingSpinner color={'#47a1ff'} /> connecting...
         </span>
       )}
       {!open && <span>{isActive ? <>Disconnect</> : <>Connect Wallet</>}</span>}

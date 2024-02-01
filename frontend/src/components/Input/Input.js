@@ -1,5 +1,5 @@
-import styles from "@/components/Input/Input.module.css";
-import Image from "next/image";
+import styles from '@/components/Input/Input.module.css';
+import Image from 'next/image';
 
 const Input = (props) => {
   const { value, onBlur, placeholder, error } = props;

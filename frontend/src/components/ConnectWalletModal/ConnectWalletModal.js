@@ -1,8 +1,8 @@
-import * as React from "react";
-import clsx from "clsx";
-import styles from "./ConnectWalletModal.module.scss";
+import * as React from 'react';
+import clsx from 'clsx';
+import styles from './ConnectWalletModal.module.scss';
 
-import ConnectWalletDialog from "../ConnectWalletDialog/ConnectWalletDialog";
+import ConnectWalletDialog from '../ConnectWalletDialog/ConnectWalletDialog';
 
 const Modal = (props) => {
   const { open, onClose } = props;
@@ -13,12 +13,12 @@ const Modal = (props) => {
   });
 
   React.useEffect(() => {
-    const body = document.querySelector("body");
+    const body = document.querySelector('body');
     if (!body) return;
     if (open) {
-      body.style.overflow = "hidden";
+      body.style.overflow = 'hidden';
     } else {
-      body.style.overflow = "auto";
+      body.style.overflow = 'auto';
     }
   });
 

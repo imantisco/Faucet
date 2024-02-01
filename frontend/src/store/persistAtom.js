@@ -1,5 +1,5 @@
 // recoilPersist.js
-import { recoilPersist } from "recoil-persist";
+import { recoilPersist } from 'recoil-persist';
 
 const { persistAtom } = recoilPersist();
 

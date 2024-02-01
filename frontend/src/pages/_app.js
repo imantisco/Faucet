@@ -1,15 +1,15 @@
-import * as React from "react";
-import "@/styles/globals.css";
-import { Web3ReactProvider } from "@web3-react/core";
-import { useWeb3React } from "@web3-react/core";
-import { RecoilRoot } from "recoil";
+import * as React from 'react';
+import '@/styles/globals.css';
+import { Web3ReactProvider } from '@web3-react/core';
+import { useWeb3React } from '@web3-react/core';
+import { RecoilRoot } from 'recoil';
 
-import RootLayout from "@/layout/RootLayout";
+import RootLayout from '@/layout/RootLayout';
 
 import {
   hooks as metaMaskHooks,
   metaMask,
-} from "@/lib/connectors/metamask/metamask";
+} from '@/lib/connectors/metamask/metamask';
 
 const connectors = [[metaMask, metaMaskHooks]];
 

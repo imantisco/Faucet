@@ -1,14 +1,14 @@
-import styles from "./ConnectWalletDialog.module.scss";
+import styles from './ConnectWalletDialog.module.scss';
 
-import { Close } from "../Icons/Close";
-import { MetaMask } from "../Icons/MetaMask";
-import { Cling } from "../Icons/Cling";
+import { Close } from '../Icons/Close';
+import { MetaMask } from '../Icons/MetaMask';
+import { Cling } from '../Icons/Cling';
 
 import {
   hooks as metaMaskHooks,
   metaMask,
-} from "@/lib/connectors/metamask/metamask";
-import { useWalletInfoRecoil } from "@/store/walletStore";
+} from '@/lib/connectors/metamask/metamask';
+import { useWalletInfoRecoil } from '@/store/walletStore';
 
 const Dialog = ({ onClose }) => {
   const { walletInfoRecoil, setWalletInfoRecoil } = useWalletInfoRecoil();
@@ -20,7 +20,7 @@ const Dialog = ({ onClose }) => {
       metaMask.activate(walletInfoRecoil.network).then(() => {
         setWalletInfoRecoil({
           ...walletInfoRecoil,
-          selectedWallet: "MetaMask",
+          selectedWallet: 'MetaMask',
         });
         onClose();
       });
@@ -39,11 +39,11 @@ const Dialog = ({ onClose }) => {
 
       <div className={styles.items}>
         <Button
-          title={"MetaMask"}
+          title={'MetaMask'}
           icon={<MetaMask />}
           onClick={connectMetaMask}
         />
-        <Button title={"Cling"} icon={<Cling />} />
+        <Button title={'Cling'} icon={<Cling />} />
       </div>
     </div>
   );

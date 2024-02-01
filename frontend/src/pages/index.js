@@ -1,27 +1,27 @@
-import React, { useState, useMemo, useRef, useEffect } from "react";
-import Head from "next/head";
-import { Lexend } from "next/font/google";
-import { ethers } from "ethers";
-import { ToastContainer, toast, Zoom } from "react-toastify";
-import axios from "axios";
-import { useWeb3React } from "@web3-react/core";
-import ReCAPTCHA from "react-google-recaptcha";
-import styles from "@/styles/Home.module.css";
-import Input from "@/components/Input/Input";
-import Button from "@/components/Button/Button";
-import Logo from "@/components/Logo/Logo";
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import Head from 'next/head';
+import { Lexend } from 'next/font/google';
+import { ethers } from 'ethers';
+import { ToastContainer, toast, Zoom } from 'react-toastify';
+import axios from 'axios';
+import { useWeb3React } from '@web3-react/core';
+import ReCAPTCHA from 'react-google-recaptcha';
+import styles from '@/styles/Home.module.css';
+import Input from '@/components/Input/Input';
+import Button from '@/components/Button/Button';
+import Logo from '@/components/Logo/Logo';
 
-import ConnectButton from "@/components/Button/ConnectButton";
-import ConnectWalletModal from "@/components/ConnectWalletModal/ConnectWalletModal";
+import ConnectButton from '@/components/Button/ConnectButton';
+import ConnectWalletModal from '@/components/ConnectWalletModal/ConnectWalletModal';
 
 const lexend = Lexend({
-  subsets: ["latin"],
-  variable: "--lexend-font",
+  subsets: ['latin'],
+  variable: '--lexend-font',
 });
 
 const Home = () => {
   const { account } = useWeb3React();
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState('');
   const [touched, setTouched] = useState(false);
   const [loading, setLoading] = useState(false);
   const [recaptcha, setRecaptcha] = useState(null);
@@ -61,7 +61,7 @@ const Home = () => {
     setLoading(true);
 
     const params = new URLSearchParams();
-    params.append("to", address);
+    params.append('to', address);
 
     axios
       .post(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/faucets`, params)
@@ -74,23 +74,23 @@ const Home = () => {
       })
       .catch((err) => {
         console.log(`err : ${JSON.stringify(err)}}`);
-        let errText = "Faucet Fail";
-        if (typeof err.response == "undefined" || err.response == null) {
-          errText = "Unknown status";
+        let errText = 'Faucet Fail';
+        if (typeof err.response == 'undefined' || err.response == null) {
+          errText = 'Unknown status';
         } else {
           switch (err.response.status) {
             case 400:
-              errText = "Invalid request";
+              errText = 'Invalid request';
               break;
             case 403:
-              errText = "Too many requests";
+              errText = 'Too many requests';
               break;
             case 404:
-              errText = "Cannot connect to server";
+              errText = 'Cannot connect to server';
               break;
             case 502:
             case 503:
-              errText = "Faucet service temporary unavailable";
+              errText = 'Faucet service temporary unavailable';
               break;
             default:
               errText = err.response.data || err.message;
@@ -104,8 +104,8 @@ const Home = () => {
 
   useEffect(() => {
     if (animationRef.current) {
-      animationRef.current.style.setProperty("transform", "translateY(-1%)");
-      animationRef.current.style.setProperty("opacity", "1");
+      animationRef.current.style.setProperty('transform', 'translateY(-1%)');
+      animationRef.current.style.setProperty('opacity', '1');
     }
   }, []);
 
@@ -141,10 +141,10 @@ const Home = () => {
           <p>Enter your wallet address to receive the payment</p>
           <div className={styles.container}>
             <Input
-              value={address ?? "Connect your wallet first"}
+              value={address ?? 'Connect your wallet first'}
               onBlur={handleBlur}
               error={(!address || !isAddressValidate) && touched}
-              placeholder={address ? "CVTX Testnet address" : "Connect wallet"}
+              placeholder={address ? 'CVTX Testnet address' : 'Connect wallet'}
             />
             <Button
               disabled={!address || !isAddressValidate || loading}

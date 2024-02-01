@@ -1,6 +1,6 @@
-import { atom } from "recoil";
-import { recoilPersist } from "recoil-persist";
-import { LOCALES } from "@/utils/constant";
+import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+import { LOCALES } from '@/utils/constant';
 // import { AddEthereumChainParameter } from "@web3-react/types";
 
 const { persistAtom } = recoilPersist({
@@ -8,19 +8,19 @@ const { persistAtom } = recoilPersist({
 });
 
 function parseLocale(maybeSupportedLocale) {
-  if (typeof maybeSupportedLocale !== "string") return undefined;
+  if (typeof maybeSupportedLocale !== 'string') return undefined;
   const lowerMaybeSupportedLocale = maybeSupportedLocale.toLowerCase();
   return LOCALES.find(
     (locale) =>
       locale.toLowerCase() === lowerMaybeSupportedLocale ||
-      locale.split("-")[0] === lowerMaybeSupportedLocale
+      locale.split('-')[0] === lowerMaybeSupportedLocale
   );
 }
 
 export function navigatorLocale() {
-  if (typeof window !== "undefined") {
+  if (typeof window !== 'undefined') {
     if (!navigator.language) return undefined;
-    const [language, region] = navigator.language.split("-");
+    const [language, region] = navigator.language.split('-');
     if (region) {
       return (
         parseLocale(`${language}-${region.toUpperCase()}`) ??
@@ -34,18 +34,18 @@ export const walletInfo = atom({
   key: `walletInfo`,
   default: {
     chainInfo: {
-      netName: "",
-      chainId: "",
-      rpcUrl: "",
-      scanUrl: "",
+      netName: '',
+      chainId: '',
+      rpcUrl: '',
+      scanUrl: '',
     },
     networkId: 0,
     network: {
       chainId: 0,
-      chainName: "",
+      chainName: '',
       nativeCurrency: {
-        name: "",
-        symbol: "",
+        name: '',
+        symbol: '',
         decimals: 18,
       },
       rpcUrls: [],

@@ -1,10 +1,10 @@
-import { atom, selector, useRecoilState } from "recoil";
+import { atom, selector, useRecoilState } from 'recoil';
 
-import persistAtom from "./persistAtom";
+import persistAtom from './persistAtom';
 
 // src/store/walletInfoStore.js
 export const walletInfoRecoilState = atom({
-  key: "walletInfo_CVTX_faucet",
+  key: 'walletInfo_CVTX_faucet',
   default: {
     chainInfo: {
       netName: process.env.NEXT_PUBLIC_NETWORK_NAME,

@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { useWalletInfoRecoil } from "@/store/walletStore";
+import { useWalletInfoRecoil } from '@/store/walletStore';
 
-import { useWeb3React } from "@web3-react/core";
-import { metaMask } from "@/lib/connectors/metamask/metamask";
+import { useWeb3React } from '@web3-react/core';
+import { metaMask } from '@/lib/connectors/metamask/metamask';
 
 const RootLayout = ({ children }) => {
   const [isSelectedWallet, setIsSelectedWallet] = React.useState(false);
@@ -20,9 +20,9 @@ const RootLayout = ({ children }) => {
 
     if (selectedWallet) {
       switch (selectedWallet) {
-        case "MetaMask":
+        case 'MetaMask':
           metaMask.connectEagerly().catch(() => {
-            console.debug("?????");
+            console.debug('?????');
           });
       }
     }
