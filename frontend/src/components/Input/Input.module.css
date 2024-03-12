@@ -19,6 +19,7 @@
   color: rgba(0, 0, 0, 1);
   margin-bottom: 4px;
   border-radius: 0px;
+  transition: border-bottom 0.25s ease;
 }
 
 @media (max-width: 1080px) {
@@ -27,7 +28,7 @@
   }
   .input {
     font-size: 18px;
-    padding: 0 10px 0 40px; 
+    padding: 0 10px 0 40px;
   }
 }
 

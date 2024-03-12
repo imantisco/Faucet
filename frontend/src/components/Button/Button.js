@@ -1,4 +1,4 @@
-import styles from "@/components/Button/Button.module.css";
+import styles from '@/components/Button/Button.module.scss';
 
 const Button = (props) => {
   const { onClick, disabled, children } = props;

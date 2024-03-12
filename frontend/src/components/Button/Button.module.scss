@@ -12,17 +12,20 @@
   font-weight: 700;
   font-size: 1rem;
   z-index: 1;
-}
+  transition: background 0.2s ease, opacity 0.2s ease;
 
-@media (max-width: 1080px) {
-  .button {
-    width: 100%;
-    margin-top:0;
+  &:hover {
+    opacity: 0.9;
   }
-}
 
-.button:disabled {
-  background: rgba(187, 187, 187, 0.4);
-  color: #bbb;
-  cursor: auto;
+  &:disabled {
+    background: rgba(187, 187, 187, 0.4);
+    color: #bbb;
+    cursor: auto;
+  }
+
+  @media (max-width: 1080px) {
+    width: 100%;
+    margin-top: 0;
+  }
 }

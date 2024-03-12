@@ -1,17 +1,18 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import Head from 'next/head';
 import { Lexend } from 'next/font/google';
 import { ethers } from 'ethers';
 import { ToastContainer, toast, Zoom } from 'react-toastify';
 import axios from 'axios';
+import { useWeb3React } from '@web3-react/core';
 import ReCAPTCHA from 'react-google-recaptcha';
 import styles from '@/styles/Home.module.css';
 import Input from '@/components/Input/Input';
 import Button from '@/components/Button/Button';
 import Logo from '@/components/Logo/Logo';
-import SnsButtons from '@/components/SNS-buttons/sns-buttons';
-import TitleWeb from '@/assets/title/title-web';
-import TitleMobile from '@/assets/title/title-mobile';
+
+import ConnectButton from '@/components/Button/ConnectButton';
+import ConnectWalletModal from '@/components/ConnectWalletModal/ConnectWalletModal';
 
 const lexend = Lexend({
   subsets: ['latin'],
@@ -19,15 +20,22 @@ const lexend = Lexend({
 });
 
 const Home = () => {
+  const { account } = useWeb3React();
   const [address, setAddress] = useState('');
   const [touched, setTouched] = useState(false);
   const [loading, setLoading] = useState(false);
   const [recaptcha, setRecaptcha] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const recaptchaRef = useRef(undefined);
+  const animationRef = useRef(null);
 
-  const handleChange = (e) => {
-    setAddress(e.target.value);
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
   };
 
   const handleBlur = () => {
@@ -40,7 +48,6 @@ const Home = () => {
   }, [address]);
 
   const reset = () => {
-    setAddress('');
     setTouched(false);
     // setRecaptcha(null);
     // recaptchaRef.current.reset();
@@ -95,6 +102,17 @@ const Home = () => {
       });
   };
 
+  useEffect(() => {
+    if (animationRef.current) {
+      animationRef.current.style.setProperty('transform', 'translateY(-1%)');
+      animationRef.current.style.setProperty('opacity', '1');
+    }
+  }, []);
+
+  useEffect(() => {
+    setAddress(account);
+  }, [account]);
+
   return (
     <>
       <Head>
@@ -103,21 +121,30 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <ConnectWalletModal open={modalOpen} onClose={handleCloseModal} />
       <header className={styles.header}>
-        <Logo />
+        <div className={styles.wrapper}>
+          <Logo />
+          <ConnectButton
+            open={modalOpen}
+            onClick={handleOpenModal}
+            onClose={handleCloseModal}
+          />
+        </div>
       </header>
       <main className={styles.main}>
-        <div className={`${styles.center} ${lexend.variable}`}>
-          <TitleWeb />
-          <TitleMobile />
+        <div
+          className={`${styles.center} ${lexend.variable}`}
+          ref={animationRef}
+        >
+          <h1>Testnet Faucet!</h1>
           <p>Enter your wallet address to receive the payment</p>
           <div className={styles.container}>
             <Input
-              value={address}
-              onChange={handleChange}
+              value={address ?? 'Connect your wallet first'}
               onBlur={handleBlur}
               error={(!address || !isAddressValidate) && touched}
-              placeholder="CVTX Testnet address"
+              placeholder={address ? 'CVTX Testnet address' : 'Connect wallet'}
             />
             <Button
               disabled={!address || !isAddressValidate || loading}
@@ -131,23 +158,21 @@ const Home = () => {
             onChange={handleRecaptchaChange}
             ref={recaptchaRef}
           /> */}
-          <ToastContainer
-            position="top-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
         </div>
       </main>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <footer className={styles.footer}>
-        <div className={styles.blank}></div>
-        <p>© 2023 CarrieVerse. All Rights Reserved</p>
-        <SnsButtons />
+        <p>© 2024 CarrieVerse. All Rights Reserved</p>
       </footer>
     </>
   );
